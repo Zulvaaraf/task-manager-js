@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const userForm = document.getElementById('userForm');
+  const userform = document.getElementById('userForm');
   const userManager = new User();
 
-  userForm.addEventListener('submit', (e) => {
+  userform.addEventListener('submit', (e) => {
     e.preventDefault();
 
     const userData = {
@@ -11,8 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const result = userManager.saveUser(userData);
 
-    if (!result.success) {
-      return alert('Failed!');
+    if (!result.status) {
+      return alert('Failed');
     }
 
     return (window.location.href = '../signin.html');

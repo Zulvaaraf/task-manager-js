@@ -3,35 +3,32 @@ class User {
     this.users = this.getUsers();
   }
 
-  saveUser(userdata) {
+  saveUser(userData) {
     const newUser = {
       id: +new Date(),
-      ...userdata,
+      ...userData,
     };
 
     this.users.push(newUser);
     localStorage.setItem('USERS', JSON.stringify(this.users));
 
-    // return (window.location.href = '../signin.html');
-
     return {
-      success: true,
+      status: 'success',
     };
   }
 
   signInUser(userNameByInput) {
-    const userExists = this.users.some((user) => user.username.toLowerCase() === userNameByInput.toLowerCase());
+    const userExist = this.users.some((user) => user.username.toLowerCase() === userNameByInput.toLowerCase());
 
-    if (!userExists) {
+    if (!userExist) {
       return {
-        success: false,
-        message: 'Failed! data not found',
+        status: false,
+        message: 'failed! data not found',
       };
     }
 
     return {
-      success: true,
-      username,
+      status: 'success',
     };
   }
 

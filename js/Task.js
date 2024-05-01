@@ -14,7 +14,7 @@ class Task {
     localStorage.setItem('TASKS', JSON.stringify(this.tasks));
 
     return {
-      success: true,
+      status: 'success',
     };
   }
 

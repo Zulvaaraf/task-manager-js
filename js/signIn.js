@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const result = userManager.signInUser(userNameByInput);
 
-    if (!result.success) {
+    if (!result.status) {
       return alert(result.message);
     }
 
