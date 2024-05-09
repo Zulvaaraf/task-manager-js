@@ -11,13 +11,12 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function displayAllTask(myTask = existingMyTask) {
-    if (existingMyTask.length == 0) {
+    if (myTask.length == 0) {
+      taskWrapperEmpty.className = 'flex justify-center items-center h-[420px] mx-auto';
       taskWrapper.className = 'hidden';
-      console.log('failed! task not found');
     } else {
       taskWrapper.innerHTML = '';
       taskWrapperEmpty.className = 'hidden';
-      console.log('success!');
 
       myTask.forEach((task) => {
         const itemTask = document.createElement('div');
@@ -77,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 </div>
                             </div>
                             <div class="flex flex-row items-center gap-x-3">
-                                <a href="#"
+                                <a href="#" id="deletedTask-${task.id}"
                                     class="my-auto font-semibold text-taskia-red border border-taskia-red p-[12px_20px] h-12 rounded-full">Delete</a>
                                 ${
                                   task.isCompleted === false
@@ -99,6 +98,14 @@ document.addEventListener('DOMContentLoaded', () => {
             myTasks.uncompletedTask(task.id);
           }
 
+          const updateTask = myTasks.getTask();
+          displayAllTask(updateTask);
+        });
+
+        itemTask.querySelector(`#deletedTask-${task.id}`).addEventListener('click', (e) => {
+          e.preventDefault();
+
+          myTasks.deleteTask(task.id);
           const updateTask = myTasks.getTask();
           displayAllTask(updateTask);
         });

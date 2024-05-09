@@ -37,6 +37,15 @@ class Task {
     }
   }
 
+  deleteTask(taskid) {
+    const index = this.tasks.findIndex((task) => task.id === taskid);
+
+    if (index !== -1) {
+      this.tasks.splice(index, 1);
+      this.updateLocalStorage();
+    }
+  }
+
   updateLocalStorage() {
     return localStorage.setItem('TASKS', JSON.stringify(this.tasks));
   }

@@ -17,6 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
       alert(result.message);
     }
 
-    return alert('Success!');
+    return (window.location.href = '../tasks.html');
   });
 });
