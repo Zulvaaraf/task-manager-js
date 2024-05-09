@@ -10,15 +10,16 @@ document.addEventListener('DOMContentLoaded', () => {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
-  function displayAllTask() {
+  function displayAllTask(myTask = existingMyTask) {
     if (existingMyTask.length == 0) {
       taskWrapper.className = 'hidden';
       console.log('failed! task not found');
     } else {
+      taskWrapper.innerHTML = '';
       taskWrapperEmpty.className = 'hidden';
       console.log('success!');
 
-      existingMyTask.forEach((task) => {
+      myTask.forEach((task) => {
         const itemTask = document.createElement('div');
         itemTask.className = 'flex justify-between bg-white p-5 w-full rounded-3xl';
         itemTask.innerHTML = `
@@ -78,11 +79,29 @@ document.addEventListener('DOMContentLoaded', () => {
                             <div class="flex flex-row items-center gap-x-3">
                                 <a href="#"
                                     class="my-auto font-semibold text-taskia-red border border-taskia-red p-[12px_20px] h-12 rounded-full">Delete</a>
-                                <a href="#"
-                                    class="flex gap-[10px] justify-center items-center text-white p-[12px_20px] h-12 font-semibold bg-gradient-to-b from-[#977FFF] to-[#6F4FFF] rounded-full w-full border border-taskia-background-grey">Complete</a>
+                                ${
+                                  task.isCompleted === false
+                                    ? `<a href="#" id="completedTask-${task.id}"
+                                    class="flex gap-[10px] justify-center items-center text-white p-[12px_20px] h-12 font-semibold bg-gradient-to-b from-[#977FFF] to-[#6F4FFF] rounded-full w-full border border-taskia-background-grey">Complete</a>`
+                                    : `<a href="#" id="completedTask-${task.id}"
+                                    class="flex gap-[10px] justify-center items-center text-white p-[12px_20px] h-12 font-semibold bg-gradient-to-b from-[#977FFF] to-[#6F4FFF] rounded-full w-full border border-taskia-background-grey">Uncompleted</a>`
+                                }
                             </div>
             `;
         taskWrapper.appendChild(itemTask);
+
+        itemTask.querySelector(`#completedTask-${task.id}`).addEventListener('click', (e) => {
+          e.preventDefault();
+
+          if (task.isCompleted === false) {
+            myTasks.completedTask(task.id);
+          } else {
+            myTasks.uncompletedTask(task.id);
+          }
+
+          const updateTask = myTasks.getTask();
+          displayAllTask(updateTask);
+        });
       });
     }
   }

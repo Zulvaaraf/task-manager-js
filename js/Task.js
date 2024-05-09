@@ -6,7 +6,7 @@ class Task {
   saveTask(taskData) {
     const newTask = {
       id: +new Date(),
-      isCompleted: true,
+      isCompleted: false,
       ...taskData,
     };
 
@@ -17,6 +17,28 @@ class Task {
       status: true,
       message: 'success',
     };
+  }
+
+  completedTask(taskid) {
+    const index = this.tasks.findIndex((task) => task.id === taskid);
+
+    if (index !== -1) {
+      this.tasks[index].isCompleted = true;
+      this.updateLocalStorage();
+    }
+  }
+
+  uncompletedTask(taskid) {
+    const index = this.tasks.findIndex((task) => task.id === taskid);
+
+    if (index !== -1) {
+      this.tasks[index].isCompleted = false;
+      this.updateLocalStorage();
+    }
+  }
+
+  updateLocalStorage() {
+    return localStorage.setItem('TASKS', JSON.stringify(this.tasks));
   }
 
   getTask() {
