@@ -6,7 +6,7 @@ class Task {
   saveTask(taskData) {
     const newTask = {
       id: +new Date(),
-      isCompleted: false,
+      isCompleted: true,
       ...taskData,
     };
 
@@ -14,7 +14,8 @@ class Task {
     localStorage.setItem('TASKS', JSON.stringify(this.tasks));
 
     return {
-      status: 'success',
+      status: true,
+      message: 'success',
     };
   }
 

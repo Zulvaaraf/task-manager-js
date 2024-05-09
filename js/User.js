@@ -13,7 +13,8 @@ class User {
     localStorage.setItem('USERS', JSON.stringify(this.users));
 
     return {
-      status: 'success',
+      status: true,
+      message: 'success',
     };
   }
 
@@ -28,7 +29,8 @@ class User {
     }
 
     return {
-      status: 'success',
+      status: true,
+      message: 'success',
     };
   }
 
